@@ -24,4 +24,10 @@ public class CategoryService {
 
 
     }
+
+    public List<Category> queryByBrandId(Long bid) {
+
+        //根据品牌id查询所有的分类
+        return categoryMapper.queryByBrandId(bid);
+    }
 }

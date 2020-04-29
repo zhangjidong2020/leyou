@@ -78,5 +78,26 @@ public class BrandService {
 
 
     }
+
+    public void updateBrand(Brand brand, List<Long> cids) {
+        //更新品牌
+        brandMapper.updateByPrimaryKey(brand);
+        //先删除品牌之前的分类，然后再重新关联品牌和分类
+        //删除中间表
+        brandMapper.deleteBrandCategory(brand.getId());
+
+
+        //插入
+        cids.forEach(cid->{
+
+            //325400  76
+            //325400  105
+            //中间表插入数据
+            brandMapper.insertBrandCategory(brand.getId(),cid);
+
+
+        });
+
+    }
 }
 

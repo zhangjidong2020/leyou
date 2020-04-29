@@ -5,9 +5,7 @@ import com.leyou.item.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.xml.ws.soap.Addressing;
 import java.util.List;
@@ -34,6 +32,19 @@ public class CategoryController {
         return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();//204
 
 
+    }
+
+    //http://api.leyou.com/api/item/category/bid/325402
+    @GetMapping("bid/{bid}")
+    public ResponseEntity<List<Category>> queryByBrandId(@PathVariable("bid") Long bid){
+
+        List<Category> categories=categoryService.queryByBrandId(bid);
+        if(categories!=null&&categories.size()>0){
+
+            return  ResponseEntity.ok(categories);
+        }
+
+        return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 
