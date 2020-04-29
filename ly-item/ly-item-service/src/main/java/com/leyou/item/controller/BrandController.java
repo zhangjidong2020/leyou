@@ -7,9 +7,9 @@ import com.leyou.item.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("brand")
@@ -20,7 +20,7 @@ public class BrandController {
     private BrandService brandService;
     //page?page=1&rows=5&sortBy=id&desc=false&key=
 
-    @RequestMapping("page")
+    @GetMapping("page")
     public ResponseEntity<PageResult<Brand>> pageQuery(@RequestParam(value = "page",defaultValue = "1") Integer page,
                                                        @RequestParam(value = "rows",defaultValue = "10") Integer rows,
                                                        @RequestParam(value = "sortBy",required = false) String  sortBy,
@@ -38,4 +38,19 @@ public class BrandController {
 
     }
 
+
+    /**
+     * 添加品牌
+     * @param brand
+     * @param cids
+     * @return
+     */
+    @PostMapping
+    public ResponseEntity<Void> addBrand(Brand brand,@RequestParam("cids") List<Long> cids){
+
+        brandService.addBrand(brand,cids);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();//201
+
+    }
 }
