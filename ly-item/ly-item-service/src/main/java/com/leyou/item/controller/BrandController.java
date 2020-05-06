@@ -60,4 +60,20 @@ public class BrandController {
         return ResponseEntity.status(HttpStatus.CREATED).build();//201
 
     }
+
+    //http://api.leyou.com/api/item/brand/cid/76
+    @GetMapping("cid/{id}")
+    public ResponseEntity<List<Brand>> queryBrandByCategory(@PathVariable("id") Long cid){
+        //根据商品分类的id查询该分类下所有的品牌
+        List<Brand> brandList=this.brandService.queryBrandByCategory(cid);
+        if(null!=brandList&&brandList.size()>0){
+            return ResponseEntity.ok(brandList);
+
+
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+
+
+    }
 }
