@@ -11,12 +11,15 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class GoodsService {
@@ -122,6 +125,74 @@ public class GoodsService {
 
 
         }
+
+
+    }
+
+    public SpuDetail querySpuDetailBySpuId(Long spuId) {
+        return this.spuDetailMapper.selectByPrimaryKey(spuId);
+
+
+    }
+
+    public List<Sku> querySkuBySpuId(Long spuId) {
+
+        Sku sku = new Sku();
+        sku.setSpuId(spuId);
+        //select * from tb_sku where spu_id=2
+        List<Sku> skuList = this.skuMapper.select(sku);
+        for(Sku s:skuList){
+            Long id = s.getId();//sku的id
+
+            //根据sku的id查询库存表
+            Stock stock = this.stockMapper.selectByPrimaryKey(id);
+            sku.setStock(stock.getStock());
+
+
+        }
+        return skuList;
+    }
+
+    @Transactional
+    public void updateGoods(SpuBo spuBo) {
+        spuBo.setLastUpdateTime(new Date());
+        //更新spu表
+        this.spuMapper.updateByPrimaryKeySelective(spuBo);
+
+        //更新spudetail表
+        this.spuDetailMapper.updateByPrimaryKeySelective(spuBo.getSpuDetail());
+        //删除sku和stock表的老数据，然后进行插入
+
+        //先查询sku数据
+        Sku sku = new Sku();
+        sku.setSpuId(spuBo.getId());
+
+        List<Sku> skuList = this.skuMapper.select(sku);
+
+
+        //删除一
+       /* for(Sku s:skuList){
+            Long id = s.getId();//获取sku的id
+            //根据sku的id删除stock表
+            this.stockMapper.deleteByPrimaryKey(id);
+            //delete from tb_stock where sku_id =2600242
+            //删除sku表
+            this.skuMapper.delete(s);
+        }*/
+
+        //删除二
+        if(!CollectionUtils.isEmpty(skuList)){
+
+            //利用jdk新特性
+            List<Long> ids = skuList.stream().map(Sku::getId).collect(Collectors.toList());//2600242 2600248
+
+            //delete from tb_stock where sku_id in(2600242,2600248)
+            this.stockMapper.deleteByIdList(ids);
+            this.skuMapper.delete(sku);
+
+        }
+        //插入
+        saveSkus(spuBo,spuBo.getSkus());
 
 
     }

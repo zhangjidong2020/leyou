@@ -2,11 +2,15 @@ package com.leyou.item.controller;
 
 import com.leyou.common.pojo.PageResult;
 import com.leyou.item.bo.SpuBo;
+import com.leyou.item.pojo.Sku;
+import com.leyou.item.pojo.SpuDetail;
 import com.leyou.item.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class GoodsController {
@@ -38,6 +42,43 @@ public class GoodsController {
 
         this.goodsService.saveGoods(spuBo);
         return ResponseEntity.status(HttpStatus.CREATED).build();//相应码201
+
+
+
+    }
+    //spu/detail/2
+    @GetMapping("spu/detail/{spuId}")
+    public ResponseEntity<SpuDetail> querySpuDetailBySpuId(@PathVariable("spuId") Long spuId){
+        //根据spuid查询spudetail
+        SpuDetail spuDetail= this.goodsService.querySpuDetailBySpuId(spuId);
+        if(null!=spuDetail){
+            return ResponseEntity.ok(spuDetail);
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    //http://api.leyou.com/api/item/sku/list?id=2
+    @GetMapping("sku/list")
+    public ResponseEntity<List<Sku>> querySkuBySpuId(@RequestParam("id") Long spuId){
+        List<Sku> skus=this.goodsService.querySkuBySpuId(spuId);
+        if(null!=skus&&skus.size()>0){
+            return ResponseEntity.ok(skus);
+
+        }
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+
+
+    }
+
+    //http://api.leyou.com/api/item/goods
+    @PutMapping
+    public ResponseEntity<Void> updateGoods(@RequestBody SpuBo spuBo){
+        //更新商品
+        this.goodsService.updateGoods(spuBo);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
 
 
 
