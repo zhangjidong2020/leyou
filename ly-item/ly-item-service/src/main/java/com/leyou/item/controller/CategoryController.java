@@ -48,4 +48,18 @@ public class CategoryController {
     }
 
 
+    // http://localhost:9081/category/names?ids=1,2,3
+    @GetMapping("names")
+    public ResponseEntity<List<String>> queryNamesByIds(@RequestParam("ids") List<Long> ids){
+        //根据分类id 查询分类名称
+        List<String> list = this.categoryService.queryNamesByIds(ids);
+        if(null!=list&&list.size()>0){
+            return ResponseEntity.ok(list);
+
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+
+
+    }
 }
