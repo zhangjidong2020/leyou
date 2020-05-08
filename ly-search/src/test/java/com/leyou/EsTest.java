@@ -2,6 +2,7 @@ package com.leyou;
 
 import com.leyou.common.pojo.PageResult;
 import com.leyou.item.bo.SpuBo;
+import com.leyou.search.client.CategoryClient;
 import com.leyou.search.client.GoodsClient;
 import com.leyou.search.pojo.Goods;
 import com.leyou.search.repository.GoodsRepository;
@@ -30,6 +31,7 @@ public class EsTest {
     @Autowired
     private IndexService indexService;
 
+
     @Test
     public void index(){
         elasticsearchTemplate.createIndex(Goods.class);
@@ -50,6 +52,7 @@ public class EsTest {
                 break;
 
             }
+            page++;
             //获取spubo
             List<SpuBo> spuBoList = pageResult.getItems();
 

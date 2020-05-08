@@ -30,6 +30,7 @@ public interface GoodsClient {
     //http://api.leyou.com/api/item/sku/list?id=2
     @GetMapping("sku/list")
     public List<Sku> querySkuBySpuId(@RequestParam("id") Long spuId);
+    //http://item-service/sku/list
 
 
 }
