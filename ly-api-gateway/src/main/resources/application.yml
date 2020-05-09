@@ -18,6 +18,7 @@ zuul:
   retryable: true
   routes:
     item-service: /item/** #商品微服务
+    search-service: /search/** #搜索微服务
     #http://192.168.228.1:10010/api/item/category/list?pid=0
     #经过zuul转发
     #http://item-service/category/list?pid=0

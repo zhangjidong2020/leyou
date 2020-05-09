@@ -110,7 +110,7 @@ public class IndexService {
 
                 //特有规格参数
             }else{
-                value=genericMap.get(id);
+                value=specialMap.get(id);
 
             }
             if(null==value){
