@@ -7,7 +7,7 @@ public class SearchRequest {
 
     private String key;//搜索关键字
     private Integer page;//当前页
-    private Map<String,Object> filter;
+    private Map<String,String> filter;
 
     private static final   Integer DEFAULT_PAGE=1;//缺省的第几页
     private static  final  Integer DEFAULT_SIZE=20;//默认显示多少条数据
@@ -34,11 +34,11 @@ public class SearchRequest {
         this.page = page;
     }
 
-    public Map<String, Object> getFilter() {
+    public Map<String, String> getFilter() {
         return filter;
     }
 
-    public void setFilter(Map<String, Object> filter) {
+    public void setFilter(Map<String, String> filter) {
         this.filter = filter;
     }
 

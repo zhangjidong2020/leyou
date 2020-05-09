@@ -76,4 +76,17 @@ public class BrandController {
 
 
     }
+
+    //根据品牌的id查询品牌
+    @GetMapping("bid/{bid}")
+    public ResponseEntity<Brand> queryBrandById(@PathVariable("bid") Long bid){
+        Brand brand=this.brandService.queryBrandById(bid);
+        if(null==brand){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+        }
+        return ResponseEntity.ok(brand);
+
+
+    }
 }

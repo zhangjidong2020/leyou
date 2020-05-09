@@ -26,4 +26,10 @@ public interface BrandClient {
     //http://api.leyou.com/api/item/brand/cid/76
     @GetMapping("brand/cid/{id}")
     public List<Brand> queryBrandByCategory(@PathVariable("id") Long cid);
+
+    //根据品牌的id查询品牌
+    @GetMapping("brand/bid/{bid}")
+    public Brand queryBrandById(@PathVariable("bid") Long bid);
+    //http://item-service/brand/bid/1
+    //http://127.0.0.1:9081/brand/bid/1
 }
