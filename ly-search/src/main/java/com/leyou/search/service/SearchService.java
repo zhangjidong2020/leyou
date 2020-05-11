@@ -52,7 +52,6 @@ public class SearchService {
     public SearchResult search(SearchRequest searchRequest) {
         String key = searchRequest.getKey();
         if(StringUtils.isBlank(key)){
-
             return null;
         }
         //自定义查询
@@ -93,8 +92,6 @@ public class SearchService {
             category.setId(cids.get(i));//76
             category.setName(names.get(i));//手机
             categories.add(category);
-
-
         }
 
         //根据聚合名称取 品牌聚合的结果
@@ -114,8 +111,6 @@ public class SearchService {
             brands.add(brand);
         }
 
-
-
         //只有分类唯一才展示规格参数
         List<Map<String,Object>> specs=null;
         if(categories.size()==1){
@@ -132,7 +127,6 @@ public class SearchService {
         //创建基本的bool的查询
         BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
         queryBuilder.must(QueryBuilders.matchQuery("all",request.getKey()).operator(Operator.AND));
-
 
         //过滤条件构建器
         BoolQueryBuilder filterQueryBuilder = QueryBuilders.boolQuery();

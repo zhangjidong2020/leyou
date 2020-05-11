@@ -16,6 +16,7 @@
         <module>ly-upload</module>
         <module>y-search</module>
         <module>ly-search</module>
+        <module>ly-goods-page</module>
 
     </modules>
 
