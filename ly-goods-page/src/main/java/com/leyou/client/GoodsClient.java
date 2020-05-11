@@ -30,6 +30,7 @@ public interface GoodsClient {
     //spu/detail/2
     @GetMapping("spu/detail/{spuId}")
     public SpuDetail querySpuDetailBySpuId(@PathVariable("spuId") Long spuId);
+    //http//item-service/spu/detail/1
 
     //http://api.leyou.com/api/item/sku/list?id=2
     @GetMapping("sku/list")
