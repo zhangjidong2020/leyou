@@ -4,11 +4,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.leyou.item.bo.SpuBo;
 import com.leyou.item.pojo.Sku;
 import com.leyou.item.pojo.SpecParam;
+import com.leyou.item.pojo.Spu;
 import com.leyou.item.pojo.SpuDetail;
 import com.leyou.search.client.CategoryClient;
 import com.leyou.search.client.GoodsClient;
 import com.leyou.search.client.SpecClient;
 import com.leyou.search.pojo.Goods;
+import com.leyou.search.repository.GoodsRepository;
 import com.leyou.utils.JsonUtils;
 import netscape.javascript.JSUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -29,6 +31,9 @@ public class IndexService {
     private GoodsClient goodsClient;
     @Autowired
     private SpecClient specClient;
+
+    @Autowired
+    private GoodsRepository goodsRepository;
 
 
     public Goods buildGoods(SpuBo spuBo) {
@@ -151,5 +156,28 @@ public class IndexService {
             }
         }
         return result;
+    }
+
+    public void createIndex(Long id) {
+        //id -spu- spubo -goods
+        //根据id查询spu
+        Spu spu = this.goodsClient.querySpuById(id);
+        SpuBo spuBo = new SpuBo();
+        //拷贝spubo
+        BeanUtils.copyProperties(spu,spuBo);
+
+        //spubo 转化goods
+
+        Goods goods = buildGoods(spuBo);
+
+        //保存到索引库
+        goodsRepository.save(goods);
+
+    }
+
+    public void deleteIndex(Long id) {
+
+        //删除索引
+        this.goodsRepository.deleteById(id);
     }
 }

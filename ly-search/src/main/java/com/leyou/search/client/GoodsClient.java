@@ -3,6 +3,7 @@ package com.leyou.search.client;
 import com.leyou.common.pojo.PageResult;
 import com.leyou.item.bo.SpuBo;
 import com.leyou.item.pojo.Sku;
+import com.leyou.item.pojo.Spu;
 import com.leyou.item.pojo.SpuDetail;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
@@ -32,5 +33,9 @@ public interface GoodsClient {
     public List<Sku> querySkuBySpuId(@RequestParam("id") Long spuId);
     //http://item-service/sku/list
 
+
+    // 根据商品的spu的id查询spu
+    @GetMapping("spu/{id}")
+    public Spu querySpuById(@PathVariable("id") Long spuId);
 
 }

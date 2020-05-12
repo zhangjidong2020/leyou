@@ -42,4 +42,6 @@ public class SearchController {
 
     }
 
+
+    //收受消息
 }

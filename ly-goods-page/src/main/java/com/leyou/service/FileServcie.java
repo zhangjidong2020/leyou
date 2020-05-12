@@ -54,8 +54,6 @@ public class FileServcie {
 
         File file = new File(destPath, spuId + ".html");//113.html
 
-
-
         try {
             //创建printwriter对象
             PrintWriter printWriter = new PrintWriter(file,"utf-8");
@@ -68,6 +66,13 @@ public class FileServcie {
             e.printStackTrace();
         }
 
+
+    }
+
+    public void deleteHtml(Long id) {
+
+        File file = new File(destPath, id + ".html");
+        file.deleteOnExit();
 
     }
 }
