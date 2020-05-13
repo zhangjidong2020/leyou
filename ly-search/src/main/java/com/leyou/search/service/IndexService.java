@@ -171,13 +171,15 @@ public class IndexService {
         Goods goods = buildGoods(spuBo);
 
         //保存到索引库
+        //表里面的一条记录
         goodsRepository.save(goods);
 
     }
 
     public void deleteIndex(Long id) {
 
-        //删除索引
+        //删除索引库中一条索引
+        //表里面的一条记录
         this.goodsRepository.deleteById(id);
     }
 }
