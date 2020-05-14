@@ -20,6 +20,9 @@ public class JwtProperties {
     private PrivateKey privateKey;
 
 
+    private String cookieName;//LY_TOKEN
+    private Integer cookieMaxAge;//1800
+
 
     @PostConstruct//构造方法执行之后，PostConstruct
     public void init() throws Exception {
@@ -46,5 +49,67 @@ public class JwtProperties {
 
     }
 
+    public String getCookieName() {
+        return cookieName;
+    }
 
+    public void setCookieName(String cookieName) {
+        this.cookieName = cookieName;
+    }
+
+    public Integer getCookieMaxAge() {
+        return cookieMaxAge;
+    }
+
+    public void setCookieMaxAge(Integer cookieMaxAge) {
+        this.cookieMaxAge = cookieMaxAge;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public String getPubKeyPath() {
+        return pubKeyPath;
+    }
+
+    public void setPubKeyPath(String pubKeyPath) {
+        this.pubKeyPath = pubKeyPath;
+    }
+
+    public String getPriKeyPath() {
+        return priKeyPath;
+    }
+
+    public void setPriKeyPath(String priKeyPath) {
+        this.priKeyPath = priKeyPath;
+    }
+
+    public Integer getExpire() {
+        return expire;
+    }
+
+    public void setExpire(Integer expire) {
+        this.expire = expire;
+    }
+
+    public PublicKey getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(PublicKey publicKey) {
+        this.publicKey = publicKey;
+    }
+
+    public PrivateKey getPrivateKey() {
+        return privateKey;
+    }
+
+    public void setPrivateKey(PrivateKey privateKey) {
+        this.privateKey = privateKey;
+    }
 }

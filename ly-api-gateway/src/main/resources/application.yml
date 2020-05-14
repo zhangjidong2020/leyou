@@ -20,10 +20,13 @@ zuul:
     item-service: /item/** #商品微服务
     search-service: /search/** #搜索微服务
     user-service: /user/** #用户模块
+    auth-service: /auth/** #授权
     #http://192.168.228.1:10010/api/item/category/list?pid=0
     #经过zuul转发
     #http://item-service/category/list?pid=0
     #http://127.0.0.1:9081/category/list?pid=0
+  add-host-header: true #携带请求本身的host头信息
+  sensitive-headers:  #敏感头过滤将失效
   ignored-services:
     - upload-service
 
@@ -40,3 +43,15 @@ hystrix:
         isolation:
           thread:
             timeoutInMillisecond: 10000 # 熔断超时时长：10000ms
+ly:
+  jwt:
+    pubKeyPath: D:/rsa/rsa.pub # 公钥地址
+    cookieName: LY_TOKEN # cookie的名称
+  filter:
+    allowPaths:
+      - /api/auth
+      - /api/search
+      - /api/user/register
+      - /api/user/check
+      - /api/user/code
+      - /api/item
