@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import com.leyou.user.utils.CodecUtils;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -94,9 +95,34 @@ public class UserService {
         if(true){
             //删除redis
             this.template.delete(KEY_PREFIX + user.getPhone());
-
         }
         return flag;
+
+
+    }
+
+    public User queryUser(String username, String password) {
+        //根据用户名查询用户
+        User user = new User();
+        user.setUsername(username);
+        //select * from tb_user where username=hehe
+        User user1 = this.userMapper.selectOne(user);
+        if(null==user1){
+            return null;
+
+        }
+        //密码比较
+
+        //使用盐对用户输入的密码进行加密
+        String s = CodecUtils.md5Hex(password, user1.getSalt());
+
+        //密码比较
+        if(!user1.getPassword().equals(s)){
+
+            return null;
+
+        }
+        return user1;
 
 
     }
