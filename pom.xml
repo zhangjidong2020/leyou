@@ -19,6 +19,7 @@
         <module>ly-goods-page</module>
         <module>ly-user</module>
         <module>ly-auth-center</module>
+        <module>ly-cart</module>
 
     </modules>
 
